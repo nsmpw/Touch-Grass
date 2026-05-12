@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #111;
+  cursor: none;
+}
+
+#bgVideo {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.85;
+}
+
+#hint {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  font-family: 'PPRightSerifMono', monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+  opacity: 1;
+  z-index: 100;
+  pointer-events: all;
+  cursor: default;
+  white-space: nowrap;
+  border: 1.5px solid rgba(255,255,255,0.9);
+  padding: 0 1rem;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  height: 36px;
+  display: flex;
+  align-items: center;
+  transition: border-color 0.2s ease, filter 0.2s ease;
+}
+#hint:hover {
+  border-color: #ffe600;
+  color: #ffe600;
+}
+
+/* ── Base flower ── */
+.flower-trail {
+  position: fixed;
+  pointer-events: all;
+  cursor: pointer;
+  z-index: 5;
+  background: none;
+  border: none;
+  padding: 0;
+  transform: translate(-50%, -50%);
+  transition: opacity 4s ease;
+}
+.flower-trail:hover { z-index: 20; }
+.flower-trail.fading { opacity: 0; pointer-events: none; }
+.flower-trail:hover.fading { opacity: 1 !important; pointer-events: all; }
+
+.flower-trail img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  display: block;
+  mix-blend-mode: screen;
+  opacity: 1;
+}
+
+@keyframes flowerAppear {
+  from { opacity: 1; }
+  to   { opacity: 1; }
+}
+
+/* ── 1. Invert — permanent ── */
+.fx-invert img {
+  filter: invert(1) !important;
+  transition: filter 0.4s ease !important;
+}
+
+/* ── 2. Grayscale — permanent ── */
+.fx-grayscale img {
+  filter: grayscale(1) !important;
+  transition: filter 0.5s ease !important;
+}
+
+/* ── 3. Blur removed ── */
+
+/* ── 4. Wiggle — small bubble ── */
+.fx-wiggle {
+  animation: doWiggle 2s ease infinite !important;
+}
+@keyframes doWiggle {
+  0%,100% { transform: translate(-50%, -50%); }
+  25% { transform: translate(calc(-50% + 3px), calc(-50% - 3px)); }
+  50% { transform: translate(calc(-50% - 3px), calc(-50% + 3px)); }
+  75% { transform: translate(calc(-50% + 2px), calc(-50% + 2px)); }
+}
+
+/* ── 5. Spin — loops ── */
+.fx-spin {
+  animation: doSpin 2s linear infinite !important;
+}
+@keyframes doSpin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* ── 6. Fade only — no scaling ── */
+.fx-fadescale {
+  animation: doFadeScale 2s ease infinite !important;
+}
+@keyframes doFadeScale {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.15; }
+}
+
+/* ── 7. Opacity + color — loops ── */
+.fx-opacitycolor img {
+  animation: doOpacityColor 3s ease infinite !important;
+}
+@keyframes doOpacityColor {
+  0%,100% { opacity: 0.85; filter: hue-rotate(0deg); }
+  25%     { opacity: 0.3;  filter: hue-rotate(90deg) brightness(1.5); }
+  50%     { opacity: 0.85; filter: hue-rotate(180deg); }
+  75%     { opacity: 0.3;  filter: hue-rotate(270deg) brightness(1.3); }
+}
+
+/* ── 8. Disperse — no reforming ── */
+.fx-disperse {
+  animation: doDisperse 2s ease forwards !important;
+}
+@keyframes doDisperse {
+  0%   { transform: translate(-50%,-50%) scale(1);   opacity: 1;   filter: blur(0px); }
+  100% { transform: translate(-50%,-50%) scale(2.5); opacity: 0;   filter: blur(16px); }
+}
+
+/* ── 9. Zigzag removed ── */
+
+/* ── 10. Pulse removed ── */
+
+/* ── 11. Ghost — loops ── */
+.fx-ghost img {
+  animation: doGhost 2s ease infinite !important;
+}
+@keyframes doGhost {
+  0%,100% { opacity: 0.85; filter: blur(0px); }
+  50%     { opacity: 0.1;  filter: blur(4px) brightness(2); }
+}
+
+/* ── 12. Burn — loops ── */
+.fx-burn img {
+  animation: doBurn 2s ease infinite !important;
+}
+@keyframes doBurn {
+  0%,100% { filter: none; }
+  50%     { filter: sepia(1) saturate(4) hue-rotate(-20deg) brightness(1.6); }
+}
+
+/* ── UI Controls ── */
+#controls {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  z-index: 100;
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  height: 36px;
+}
+
+#infoBtn, #soundBtn {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(255,255,255,0.9);
+  background: rgba(0,0,0,0.65);
+  color: #ffffff;
+  border-radius: 4px;
+  font-family: 'PPRightSerifMono', monospace;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  backdrop-filter: blur(6px);
+  opacity: 1;
+}
+
+#infoBtn:hover, #soundBtn:hover {
+  background: rgba(255,230,0,0.1);
+  border-color: #ffe600;
+  color: #ffe600;
+}
+
+#soundBtn:hover svg {
+  stroke: #ffe600;
+}
+
+#soundBtn.muted {
+  opacity: 0.5;
+}
+
+#soundBtn svg {
+  pointer-events: none;
+  stroke: #ffffff;
+}
+
+/* ── Info panel ── */
+#infoPanel {
+  position: fixed;
+  bottom: 4.5rem;
+  left: 1.5rem;
+  z-index: 100;
+  background: rgba(0,0,0,0.65);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 6px;
+  padding: 1.2rem 1.4rem;
+  font-family: 'PPRightSerifMono', monospace;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.85;
+  backdrop-filter: blur(8px);
+  display: none;
+  max-width: 460px;
+}
+
+#infoPanel.visible {
+  display: block;
+  animation: fadeInPanel 0.25s ease forwards;
+}
+
+@keyframes fadeInPanel {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.info-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 1rem;
+  cursor: default;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+.info-title:hover {
+  color: #ffe600;
+}
+
+.info-body {
+  margin-bottom: 0.9rem;
+  color: rgba(255,255,255,0.85);
+  text-wrap: pretty;
+}
+
+.info-mono {
+  color: rgba(255,255,255,0.5);
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+  cursor: default;
+}
+
+.info-mono:hover {
+  color: #ffe600;
+}
+
+.info-italic {
+  font-style: italic;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.info-credit {
+  margin-top: 1rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  line-height: 1.8;
+  font-style: italic;
+  font-family: 'PPRightSerifMono', monospace;
+  cursor: default;
+  transition: color 0.2s ease;
+  display: inline-block;
+}
+
+.info-credit:hover {
+  color: #ffe600;
+}
+
+/* ── Blur effect ── */
+.fx-blur img {
+  filter: blur(8px) !important;
+  transition: filter 0.5s ease !important;
+}

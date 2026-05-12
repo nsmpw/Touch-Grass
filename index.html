@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🟩</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    @font-face {
+      font-family: 'PPRightSerifMono';
+      src: url('PPRightSerifMono-Regular.otf') format('opentype');
+    }
+    @font-face {
+      font-family: 'PPRightSerifMono';
+      src: url('PPRightSerifMono-RegularItalic.otf') format('opentype');
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <video id="bgVideo" muted loop playsinline></video>
+  <div id="hint">MOVE YOUR CURSOR TO GROW A GARDEN. FIND THE ODD ONE OUT. CLICK IT.</div>
+
+  <!-- UI Controls -->
+  <div id="controls">
+    <button id="infoBtn" aria-label="Info">i</button>
+    <button id="soundBtn" aria-label="Toggle sound">
+      <!-- Speaker ON -->
+      <svg id="iconOn" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      </svg>
+      <!-- Speaker OFF — diagonal strike through -->
+      <svg id="iconOff" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <line x1="3" y1="3" x2="21" y2="21"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Info panel -->
+  <div id="infoPanel">
+    <p class="info-title">Touch Some Grass 𖧧</p>
+    <p class="info-body">The phrase entered internet culture as a provocation directed at those who spend too much time online. To touch grass is to&nbsp;re&#8209;ground oneself in nature after prolonged digital immersion.</p>
+    <p class="info-body"><span class="info-mono">&lt;button&gt;</span> usually does one thing. You click it and something happens. Here, it does not submit, confirm, or proceed. It blooms. 32 buttons, 32 flowers, 32 different effects.</p>
+    <p class="info-body">Each flower carries its own behavior. Somewhere in the trail, one feels different. Find it. Click it. The rest of the garden will follow.</p>
+    <p class="info-credit">Created and developed by Naomi Sumampow<br>under the guidance of Severin Bunse</p>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
